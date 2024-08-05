@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Questions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="course-title"></h1>
+        <div id="timer">Time left: <span id="time">60</span> seconds</div>
+        <div id="questions-container"></div>
+        <button id="submit-button">Submit</button>
+    </div>
+    <script>
+    document.getElementById('submit-button').addEventListener('click', function() {
+        const params = new URLSearchParams(window.location.search);
+        const course = params.get('course');
+        window.location.href = `results.html?course=${course}`;
+    });
+</script>
+    <script src="script.js"></script>
+</body>
+</html>

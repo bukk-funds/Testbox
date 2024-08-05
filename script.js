@@ -1,4 +1,4 @@
- const courses = {
+const courses = {
     anatomy: [
         { question: "What is the largest bone in the human body?", options: ["Femur", "Tibia", "Humerus", "Radius"], answer: "Femur" },
 
@@ -70,12 +70,19 @@
 document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const course = params.get('course');
-    if (course) {
-        loadQuestions(course);
-        startTimer(60);
+    
+    if (course && courses[course]) {
+        if (window.location.pathname.endsWith('questions.html')) {
+            loadQuestions(course);
+            startTimer(60);
+            document.getElementById('submit-button')?.addEventListener('click', submitAnswers);
+        } else if (window.location.pathname.endsWith('results.html')) {
+            displayResults(course);
+            setAnswersLink(course);
+        }
+    } else {
+        console.error("Invalid course parameter or course not found in the list.");
     }
-
-    document.getElementById('submit-button')?.addEventListener('click', submitAnswers);
 });
 
 function loadQuestions(course) {
@@ -89,7 +96,6 @@ function loadQuestions(course) {
         
         const questionTitle = document.createElement('h3');
         questionTitle.textContent = `${index + 1}. ${question.question}`;
-        
         questionElement.appendChild(questionTitle);
 
         question.options.forEach(option => {
@@ -151,63 +157,38 @@ function submitAnswers() {
     localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
     localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
 
-    // Debugging: Check if data is correctly stored
-    console.log("Score saved:", score);
-    console.log("Total saved:", questions.length);
-    console.log("User Answers saved:", userAnswers);
-    console.log("Correct Answers saved:", correctAnswers);
-
-    window.location.href = 'results.html';
+    window.location.href = `results.html?course=${course}`;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (window.location.pathname.endsWith('results.html')) {
-        const score = localStorage.getItem('score');
-        const total = localStorage.getItem('total');
-        const userAnswers = JSON.parse(localStorage.getItem('userAnswers'));
-        const correctAnswers = JSON.parse(localStorage.getItem('correctAnswers'));
-        const course = new URLSearchParams(window.location.search).get('course');
-        const resultsContainer = document.getElementById('results');
+function displayResults(course) {
+    const score = localStorage.getItem('score');
+    const total = localStorage.getItem('total');
+    const userAnswers = JSON.parse(localStorage.getItem('userAnswers'));
+    const correctAnswers = JSON.parse(localStorage.getItem('correctAnswers'));
+    const resultsContainer = document.getElementById('results');
 
-        resultsContainer.innerHTML = `<p>You scored ${score} out of ${total}</p>`;
+    resultsContainer.innerHTML = `<p>You scored ${score} out of ${total}</p>`;
 
-        // Debugging: Check if data is correctly retrieved
-        console.log("Score retrieved:", score);
-        console.log("Total retrieved:", total);
-        console.log("User Answers retrieved:", userAnswers);
-        console.log("Correct Answers retrieved:", correctAnswers);
+    courses[course].forEach((question, index) => {
+        const userAnswer = userAnswers[index];
+        const correctAnswer = correctAnswers[index];
+        const result = document.createElement('div');
+        result.innerHTML = `
+            <p><strong>Question ${index + 1}:</strong> ${question.question}</p>
+            <p>Your answer: ${userAnswer}</p>
+            <p>Correct answer: ${correctAnswer}</p>
+        `;
+        resultsContainer.appendChild(result);
+    });
+}
 
-        courses[course].forEach((question, index) => {
-            const userAnswer = userAnswers[index];
-            const correctAnswer = correctAnswers[index];
-            const result = document.createElement('div');
-            result.innerHTML = `
-                <p><strong>Question ${index + 1}:</strong> ${question.question}</p>
-                <p>Your answer: ${userAnswer}</p>
-                <p>Correct answer: ${correctAnswer}</p>
-            `;
-            resultsContainer.appendChild(result);
-        });
-    }
-});
-
-
-// script.js
-
-// Function to dynamically set the correct answers link
-function setAnswersLink() {
-    // Get the course parameter from the URL
-    const params = new URLSearchParams(window.location.search);
-    const course = params.get('course');
-
-    // Dynamically set the link to the correct answers page
+function setAnswersLink(course) {
     const answersLink = document.getElementById('answers-link');
     if (course) {
-        answersLink.href = `${course}_answers.html`; // e.g., anatomy_answers.html
+        answersLink.href = `${course}_answers.html`;
     } else {
         answersLink.href = '#'; // Fallback if no course is specified
     }
 }
 
-// Call the function on page load
-setAnswersLink();
+

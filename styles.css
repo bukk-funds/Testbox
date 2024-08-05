@@ -1,0 +1,122 @@
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+header{
+    padding: 10px;
+    background-color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px; */
+    text-align: center;
+}
+
+h1, h2 {
+    font-weight: 400;
+    margin: 10px 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+a {
+    text-decoration: none;
+    /* color: #007BFF; */
+}
+
+a:hover {
+    /* text-decoration: underline; */
+}
+
+.anat{
+    color:#007BFF;
+    font-size:20px;
+    letter-spacing: 5px;
+    position:relative;
+    font-weight:;
+    text-shadow:1px 1px 1px #007BFF,
+    1px 1px 1px #007BFF,
+    1px 1px 1px #007BFF,
+    1px 1px 1px #007BFF,
+    1px 1px 1px #007BFF;
+}
+
+
+.bcm{
+    color:#dd4124;
+    font-size:20px;
+    letter-spacing: 5px;
+    position:relative;
+    font-weight:;
+    text-shadow:1px 1px 1px #dd4124,
+    1px 1px 1px #dd4124,
+    1px 1px 1px #dd4124,
+    1px 1px 1px #dd4124,
+    1px 1px 1px #dd4124;
+}
+
+.physio{
+    color:#5b5ea6;
+    font-size:20px;
+    letter-spacing: 5px;
+    position:relative;
+    font-weight:;
+    text-shadow:1px 1px 1px #5b5ea6,
+    1px 1px 1px #5b5ea6,
+    1px 1px 1px #5b5ea6,
+    1px 1px 1px #5b5ea6,
+    1px 1px 1px #5b5ea6;
+}
+
+#questions-container {
+    text-align: left;
+}
+
+
+.question {
+    margin-bottom: 20px;
+}
+
+.question h3 {
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+footer{
+  text-align: center;
+  font-weight: 450;
+  background-color: #fff;
+  padding-bottom: 7px;
+}

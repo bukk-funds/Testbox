@@ -190,5 +190,3 @@ function setAnswersLink(course) {
         answersLink.href = '#'; // Fallback if no course is specified
     }
 }
-
-
